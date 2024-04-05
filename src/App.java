@@ -17,13 +17,24 @@ public class App {
     // Mapa para armazenar os números Fibonacci já calculados
     private static Map<Integer, Integer> memo = new HashMap<>();
 
+    public static int findFactorialNR(int number){
+
+        int memory  = 1, indexMemo = 1;
+        memo.put(0 , 1);
+        memo.put(1, 1);
+        for (int i = number; i > 1; i--){
+            memory *= i;
+            memo.put(indexMemo += 1, memory);
+        }
+        return memory;
+    }
+
     public static int findFactorial(int numberFactorial) {
         if (numberFactorial == 1 || numberFactorial == 0) {
             return 1;
         }
 
         if (memo.containsKey(numberFactorial)) {
-            System.out.println("ENTROU segundo if");
             return memo.get(numberFactorial);
         }
         int numberMemoryFactorial   = numberFactorial * findFactorial(numberFactorial - 1);
@@ -40,13 +51,10 @@ public class App {
         }
     }
 
-    public static int f(int number) {
-        return 0;
-    }
-
     public static void main(String[] args) throws Exception {
         int numberFactorial = 7;
-        findFactorial(numberFactorial);
+        System.out.println(findFactorialNR(numberFactorial));
+        //findFactorial(numberFactorial);
         // System.err.println("Elemento " + numberFactorial + " : " +
         // findFactorial(numberFactorial));
 
