@@ -17,19 +17,40 @@ public class App {
     // Mapa para armazenar os números Fibonacci já calculados
     private static Map<Integer, Integer> memo = new HashMap<>();
 
-    public static int findElement(int n) {
-        if (n <= 1) {
-            return n;
+    public static int findFactorial(int numberFactorial) {
+        if (numberFactorial == 1 || numberFactorial == 0) {
+            return 1;
         }
-        // 2 = elemento na posicao 1 + elemento na posicao 0
-        // 2 = findElement(1) + findElement(0)
-        // 3 = elemento na posicao 2 + elemento na posicao 1
-        // 3 = findElement(2) + findElement(1)
-        return findElement(n - 1) + findElement(n - 2);
+
+        if (memo.containsKey(numberFactorial)) {
+            System.out.println("ENTROU segundo if");
+            return memo.get(numberFactorial);
+        }
+        int numberMemoryFactorial   = numberFactorial * findFactorial(numberFactorial - 1);
+        memo.put(numberFactorial, numberMemoryFactorial);
+
+        return numberMemoryFactorial;
+    }
+
+    // Função para imprimir o HashMap de memoização
+    public static void imprimirMemo() {
+        System.out.println("Memoização:");
+        for (Map.Entry<Integer, Integer> entry : memo.entrySet()) {
+            System.out.println("Número: " + entry.getKey() + ", Fatorial: " + entry.getValue());
+        }
+    }
+
+    public static int f(int number) {
+        return 0;
     }
 
     public static void main(String[] args) throws Exception {
-        int n = 30;
-        System.err.println("Elemento " + n + " : " + findElement(n));
+        int numberFactorial = 7;
+        findFactorial(numberFactorial);
+        // System.err.println("Elemento " + numberFactorial + " : " +
+        // findFactorial(numberFactorial));
+
+        // Imprime o HashMap de memoização
+        // imprimirMemo();
     }
 }
